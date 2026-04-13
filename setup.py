@@ -7,8 +7,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="NorenRestApi",
-    version="0.0.33",
+    name="NorenRestApiOAuth",
+    version="0.0.38",
     author="KumarAnand",
     author_email="kumar.anand@kambala.co.in",
     description="A package for NorenOMS",

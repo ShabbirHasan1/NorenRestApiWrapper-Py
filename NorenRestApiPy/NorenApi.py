@@ -181,7 +181,7 @@ class NorenApi:
         #print(continue_flag)
 
         res = json.loads(message)
-
+  
         if(self.__subscribe_callback is not None):
             if res['t'] == 'tk' or res['t'] == 'tf':
                 self.__subscribe_callback(res)
@@ -191,15 +191,25 @@ class NorenApi:
                 return
 
         if(self.__on_error is not None):
-            if res['t'] == 'ck' and res['s'] != 'OK':
+            if res['t'] == 'ak' and res['s'] != 'OK':
                 self.__on_error(res)
                 return
+            
+        # if(self.__on_error is not None):
+        #     if res['t'] == 'ck' and res['s'] != 'OK':
+        #         self.__on_error(res)
+        #         return
 
         if(self.__order_update_callback is not None):
             if res['t'] == 'om':
                 self.__order_update_callback(res)
                 return
 
+        if self.__on_open:
+            if res['t'] == 'ak' and res['s'] == 'OK':
+                self.__on_open()
+                return
+            
         if self.__on_open:
             if res['t'] == 'ck' and res['s'] == 'OK':
                 self.__on_open()
